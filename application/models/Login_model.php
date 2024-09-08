@@ -17,13 +17,13 @@ class Login_model extends CI_Model{
     $this->db->where('username', $username);
     $this->db->where('password', $password);
     $this->db->like('acctStat', 'active');
-    $result = $this->db->get('users', 1);
+    $result = $this->db->get('o_users', 1);
     return $result;
   }
  public function forgotPassword($email)
   {
     $this->db->select('email');
-    $this->db->from('users');
+    $this->db->from('o_users');
     $this->db->where('email', $email);
     $query = $this->db->get();
     return $query->row_array();
@@ -32,14 +32,14 @@ class Login_model extends CI_Model{
   public function sendpassword($data)
   {
     $email = $data['email'];
-    $query1 = $this->db->query("SELECT *  from users where email = '" . $email . "' ");
+    $query1 = $this->db->query("SELECT *  from o_users where email = '" . $email . "' ");
     $row = $query1->result_array();
     if ($query1->num_rows() > 0) {
       $passwordplain = "";
       $passwordplain  = rand(999999999, 9999999999);
       $newpass['password'] = sha1($passwordplain);
       $this->db->where('email', $email);
-      $this->db->update('users', $newpass);
+      $this->db->update('o_users', $newpass);
       
       //Email Notification
 			$this->load->config('email');

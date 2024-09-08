@@ -696,7 +696,7 @@ function getOR()
 //Get Profile Pictures
 	 public function profilepic($id){
 		 $this->db->select('*');
-		 $this->db->from('users');
+		 $this->db->from('o_users');
 		 $this->db->where('username',$id);
 		 $query=$this->db->get();
 		 return $query->result();
